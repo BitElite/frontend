@@ -10,7 +10,7 @@ const Connect = () => {
         if (isChainEthereum(chainId as string)) {
             await switchChain("0x7AB7")
         }
-        await signMessage("Message")
+        await signMessage("Signing");
     }
 
     const isChainEthereum = (chainId: string) => {
