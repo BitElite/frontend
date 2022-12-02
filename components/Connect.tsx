@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Box } from "@chakra-ui/react";
 import { useMetaMask } from "metamask-react";
 import signMessage from "../utils/signMessage";
 
@@ -20,9 +20,11 @@ const Connect = () => {
     const isConnected = status === "connected";
 
     return (
-        !isConnected ?
-            <Button bgColor="pink.300" onClick={connectToMetamask}>Connect</Button> :
-            <Button>Connected</Button>
+        <Box marginTop="1.5rem">
+            {!isConnected ?
+                <Button bgColor="pink.300" onClick={connectToMetamask}>Connect</Button> :
+                <Button>Connected</Button>}
+        </Box>
     )
 }
 
