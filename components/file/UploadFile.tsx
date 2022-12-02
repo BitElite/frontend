@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Box } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 
 const UploadFile = () => {
@@ -18,7 +18,9 @@ const UploadFile = () => {
     return (
         <>
             <input onInput={onFileChange} ref={inputRef} style={{ visibility: "hidden" }} type="file"></input>
-            <Button onClick={handleUploadClick}>Upload File</Button>
+            <Box textAlign="left">
+                <Button onClick={handleUploadClick}>Upload File</Button>
+            </Box>
         </>
     )
 }
