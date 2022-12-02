@@ -2,17 +2,22 @@ import { Button, Box } from "@chakra-ui/react";
 import { useMetaMask } from "metamask-react";
 import signMessage from "../../utils/signMessage";
 import { useRouter } from "next/router";
+import { sendSignature } from "../../api/signature";
+import { useAuthenticated } from "../../hooks/useAuthenticated";
 
 const Connect = () => {
     const { status, connect, chainId, switchChain } = useMetaMask();
     const router = useRouter();
+    const auth=useAuthenticated();
 
     const connectToMetamask = async () => {
         await connect()
         if (isChainEthereum(chainId as string)) {
             await switchChain("0x7AB7")
         }
-        await signMessage("Signing");
+        const signature=await signMessage("Signing");
+        const token=await sendSignature("http://localhost:8000/v1/user",signature);
+        window.localStorage.setItem("token",token);
         router.push("file")
     }
 

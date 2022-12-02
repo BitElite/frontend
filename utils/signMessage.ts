@@ -11,5 +11,5 @@ export default async function signMessage(message) {
 	const address = await signer.getAddress();
 	// @ts-ignore
 	const signature = await signer.signMessage(message);
-	console.log(signature);
+	return signature;
 }
