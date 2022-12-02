@@ -1,11 +1,11 @@
 import '../styles/globals.scss'
-import { ChakraProvider, useColorModeValue } from '@chakra-ui/react'
-import { chains, wagmiClient } from '../src/connect'
-import { darkTheme, lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit'
-import { WagmiConfig } from 'wagmi'
+import { ChakraProvider } from '@chakra-ui/react'
 import nProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { Router } from 'next/router'
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { WagmiConfig } from 'wagmi';
+import { wagmiClient, chains } from '../src/connect';
 
 type AppProps = {
   Component: React.ComponentType
@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
       <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains} theme={darkTheme()}>
+        <RainbowKitProvider chains={chains}>
           <Component {...pageProps} />
         </RainbowKitProvider>
       </WagmiConfig>

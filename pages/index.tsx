@@ -1,62 +1,20 @@
-import { MoonIcon, SunIcon } from "@chakra-ui/icons"
 import {
   Container,
   Flex,
   Spacer,
-  Icon,
   Heading,
-  Button,
-  Link,
-  useColorMode,
   useColorModeValue,
-  Divider,
   Text,
-  Tooltip,
-  IconButton
 } from "@chakra-ui/react"
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { motion } from "framer-motion";
+import Navbar from "../components/navbar";
 import styles from '../styles/Home.module.scss'
 
-export const ConnectBtn = () => {
-  return <ConnectButton />
-}
-
 export default function Home() {
-  const { toggleColorMode, colorMode } = useColorMode();
-  
   return (
     <Container maxW="100vw" w="100vw" h="100vh">
       <Flex h="100%" direction="column" alignItems="center">
-        <Flex h="3rem" w="100%" direction="row" alignItems="center" padding="5px" textAlign="center">
-          <Heading size="lg">BitElite</Heading>
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Spacer />
-          <Link href="#features" padding="10px" textDecoration="none" fontWeight="500" color="GrayText" _hover={{
-            color: useColorModeValue("black", "white")
-          }}>Features</Link>
-          <Spacer />
-          <Link href="#use-cases" padding="10px" textDecoration="none" fontWeight="500" color="GrayText" _hover={{
-            color: useColorModeValue("black", "white")
-          }}>Use Cases</Link>
-          <Spacer />
-          <Tooltip label='Connect your wallet'>
-            <ConnectBtn/>
-          </Tooltip>
-          <Spacer />
-          <Tooltip label='Toggle theme'>
-            <IconButton variant='outline' aria-label="Toggle theme" icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />} onClick={toggleColorMode} />
-          </Tooltip>
-        </Flex>
-        <Divider orientation="horizontal" />
+        <Navbar />
         <Spacer />
         <div style={{
           width: "300px",
@@ -77,8 +35,23 @@ export default function Home() {
             />
           </svg>
         </div>
-        <Heading textAlign="center" size="2xl" color={useColorModeValue("dark.300", "gray.300")}>Let's get started using</Heading>
-        <Heading textAlign="center" size="xl"><Text
+        <motion.div
+          transition={{
+            ease: "easeIn",
+            duration: 0.7,
+          }}
+          initial={{
+            x: -600,
+          }}
+          animate={{
+            x: 0
+          }}
+        >
+          <Heading textAlign="center" size="2xl" color={useColorModeValue("dark.300", "gray.300")}>Let's get started using</Heading>
+        </motion.div>
+        <Heading textAlign="center" size="xl" style={{
+          marginTop: "10px"
+        }}><Text
           bgGradient='linear(to-l, #7928CA, #FF0080)'
           bgClip='text'
         >
