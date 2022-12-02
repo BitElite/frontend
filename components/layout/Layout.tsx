@@ -2,7 +2,7 @@ import {
     Container,
     Flex,
 } from "@chakra-ui/react"
-import Header from "../components/Header"
+import Header from "./Header"
 
 export default function Layout(props: any) {
 

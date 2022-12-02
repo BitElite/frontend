@@ -1,6 +1,6 @@
 import { Button, Box } from "@chakra-ui/react";
 import { useMetaMask } from "metamask-react";
-import signMessage from "../utils/signMessage";
+import signMessage from "../../utils/signMessage";
 
 const Connect = () => {
     const { status, connect, chainId, switchChain } = useMetaMask();

@@ -4,23 +4,21 @@ import {
   Spacer,
   Tooltip
 } from "@chakra-ui/react"
-import Gradient from "../components/Gradient"
-import Header from "../components/Header"
-import BitEliteTitle from "../components/BitEliteTitle"
-import Connect from "../components/Connect"
-import Layout from "../components/Layout"
+import Gradient from "../components/home/Gradient"
+import Header from "../components/layout/Header"
+import BitEliteTitle from "../components/home/BitEliteTitle"
+import Connect from "../components/home/Connect"
+import Layout from "../components/layout/Layout"
 
 export default function Home() {
   return (
     <>
-      <Layout>
-        <Gradient />
-        <BitEliteTitle />
-        <Tooltip label='Connect your wallet'>
-          <Connect />
-        </Tooltip>
-        <Spacer />
-      </Layout>
+      <Gradient />
+      <BitEliteTitle />
+      <Tooltip label='Connect your wallet'>
+        <Connect />
+      </Tooltip>
+      <Spacer />
     </>
   )
 }
