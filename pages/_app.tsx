@@ -3,7 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import nProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { Router } from 'next/router'
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { darkTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { WagmiConfig } from 'wagmi';
 import { wagmiClient, chains } from '../src/connect';
 
@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
       <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains}>
+        <RainbowKitProvider chains={chains} theme={darkTheme()}>
           <Component {...pageProps} />
         </RainbowKitProvider>
       </WagmiConfig>
