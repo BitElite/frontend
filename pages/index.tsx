@@ -2,12 +2,12 @@ import {
   Container,
   Flex,
   Spacer,
-  Heading,
-  Text,
+  Tooltip
 } from "@chakra-ui/react"
-import UploadFile from "../components/UploadFile"
 import Gradient from "../components/Gradient"
 import Header from "../components/Header"
+import BitEliteTitle from "../components/BitEliteTitle"
+import Connect from "../components/Connect"
 
 export default function Home() {
 
@@ -16,7 +16,10 @@ export default function Home() {
       <Flex h="100%" direction="column" alignItems="center">
         <Header />
         <Gradient />
-        <UploadFile />
+        <BitEliteTitle />
+        <Tooltip label='Connect your wallet'>
+          <Connect />
+        </Tooltip>
         <Spacer />
       </Flex>
     </Container>
