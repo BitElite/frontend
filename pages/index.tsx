@@ -14,11 +14,16 @@ import {
   Tooltip,
   IconButton
 } from "@chakra-ui/react"
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import styles from '../styles/Home.module.scss'
 
-export default function Home() {
-  const { toggleColorMode, colorMode } = useColorMode()
+export const ConnectBtn = () => {
+  return <ConnectButton />
+}
 
+export default function Home() {
+  const { toggleColorMode, colorMode } = useColorMode();
+  
   return (
     <Container maxW="100vw" w="100vw" h="100vh">
       <Flex h="100%" direction="column" alignItems="center">
@@ -44,9 +49,7 @@ export default function Home() {
           }}>Use Cases</Link>
           <Spacer />
           <Tooltip label='Connect your wallet'>
-            <Button bgColor="pink.300" _hover={{
-              bgColor: "pink.400"
-            }}>Connect</Button>
+            <ConnectBtn/>
           </Tooltip>
           <Spacer />
           <Tooltip label='Toggle theme'>
@@ -59,12 +62,12 @@ export default function Home() {
           width: "300px",
           height: "300px",
           position: "absolute",
-          filter: "blur(200px)",
+          filter: "blur(170px)",
           marginTop: "-30px"
         }}>
           <svg viewBox="0 0 200 200" width="100%" height="100%">
             <path
-              fill="#7928CA"
+              fill={useColorModeValue("#000000", "#7928CA")}
               d="
                  M 100, 100
                  m -75, 0
@@ -74,8 +77,13 @@ export default function Home() {
             />
           </svg>
         </div>
-        <Heading textAlign="center" size="3xl">An awesome website made <br />using Chakra UI</Heading>
-        <Text textAlign="center" color="gray.500" fontSize='2xl' w="4xl">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</Text>
+        <Heading textAlign="center" size="2xl" color={useColorModeValue("dark.300", "gray.300")}>Let's get started using</Heading>
+        <Heading textAlign="center" size="xl"><Text
+          bgGradient='linear(to-l, #7928CA, #FF0080)'
+          bgClip='text'
+        >
+          BitElite Portal
+        </Text></Heading>
         <Spacer />
       </Flex>
     </Container>
