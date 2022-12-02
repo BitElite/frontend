@@ -1,3 +1,5 @@
+import { ethers } from "ethers";
+
 // @ts-ignore
 export default async function signMessage(message) {
     // @ts-ignore
