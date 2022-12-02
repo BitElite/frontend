@@ -8,11 +8,16 @@ const UploadFile = () => {
         inputRef.current.click()
     }
 
+    const onFileChange = (e: any) => {
+        const file = e.target.files[0]
+        console.log(file)
+    }
+
     const [file, setFile] = useState()
 
     return (
         <>
-            <input ref={inputRef} style={{ visibility: "hidden" }} type="file"></input>
+            <input onInput={onFileChange} ref={inputRef} style={{ visibility: "hidden" }} type="file"></input>
             <Button onClick={handleUploadClick}>Upload File</Button>
         </>
     )
