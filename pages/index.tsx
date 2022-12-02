@@ -14,6 +14,7 @@ import {
   Tooltip,
   IconButton
 } from "@chakra-ui/react"
+import Connect from "../components/Connect"
 import styles from '../styles/Home.module.scss'
 
 export default function Home() {
@@ -44,9 +45,10 @@ export default function Home() {
           }}>Use Cases</Link>
           <Spacer />
           <Tooltip label='Connect your wallet'>
-            <Button bgColor="pink.300" _hover={{
+            {/* <Button bgColor="pink.300" _hover={{
               bgColor: "pink.400"
-            }}>Connect</Button>
+            }}>Connect</Button> */}
+            <Connect />
           </Tooltip>
           <Spacer />
           <Tooltip label='Toggle theme'>

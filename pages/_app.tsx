@@ -1,5 +1,6 @@
 import '../styles/globals.scss'
 import { ChakraProvider } from '@chakra-ui/react'
+import { MetaMaskProvider } from "metamask-react";
 
 type AppProps = {
   Component: React.ComponentType
@@ -9,7 +10,9 @@ type AppProps = {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <MetaMaskProvider>
+        <Component {...pageProps} />
+      </MetaMaskProvider>
     </ChakraProvider>
   )
 }
