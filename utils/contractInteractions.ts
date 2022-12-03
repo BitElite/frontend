@@ -74,3 +74,19 @@ export async function addOwner(CID:string,size:string){
     }
 }
 
+export default async function getRemainingBalance(address:string){
+    // @ts-ignore
+    if(typeof window.ethereum!=="undefined"){
+        // @ts-ignore
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner()
+        const contract = new ethers.Contract(
+            contractAddr,
+            ABI,
+            signer
+        );
+
+        const availableBalance=await contract.refundPending(address);
+        return availableBalance;
+    }
+}
