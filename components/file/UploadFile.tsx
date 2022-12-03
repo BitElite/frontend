@@ -1,5 +1,6 @@
 import { Button, Box } from "@chakra-ui/react";
 import { useRef, useState } from "react";
+import generateCID from "../../utils/generateCID";
 
 const UploadFile = () => {
     const inputRef: any = useRef()
@@ -8,9 +9,10 @@ const UploadFile = () => {
         inputRef.current.click()
     }
 
-    const onFileChange = (e: any) => {
+    const onFileChange =async  (e: any) => {
         const file = e.target.files[0]
-        console.log(file)
+        const response=await generateCID(file);
+        console.log(response);
     }
 
     const [file, setFile] = useState()
