@@ -20,34 +20,8 @@ import {
 import { CopyIcon } from "@chakra-ui/icons"
 import React from 'react'
 import dayjs from "dayjs"
+import { useAppSelector } from "../hooks/redux"
 import UploadFile from '../components/file/UploadFile';
-
-const files = [
-	{
-		name: "No name",
-		size: "0.80 MB",
-		cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-		uploadedAt: new Date(1670051973608),
-	},
-	{
-		name: "No name",
-		size: "0.80 MB",
-		cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-		uploadedAt: new Date(1670051973608),
-	},
-	{
-		name: "No name",
-		size: "0.80 MB",
-		cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-		uploadedAt: new Date(1670051973608),
-	},
-	{
-		name: "No name",
-		size: "0.80 MB",
-		cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-		uploadedAt: new Date(1670051973608),
-	},
-];
 
 const truncateString = (str: string, num: number) => {
 	if (str.length <= num) {
@@ -58,6 +32,7 @@ const truncateString = (str: string, num: number) => {
 
 export default function Dashboard() {
 	const toast = useToast();
+	const { files } = useAppSelector((state) => state.files);
 
 	return (
 		<>
@@ -86,7 +61,7 @@ export default function Dashboard() {
 						</Text>
 					</CardBody>
 					<CardFooter>
-						<Button>Upload</Button>
+						<UploadFile />
 					</CardFooter>
 				</Card>
 			</Flex>
