@@ -44,7 +44,7 @@ export default function Dashboard() {
 					</CardHeader>
 					<CardBody>
 						<Text>
-							Withdraw the amount 
+							Withdraw the amount from the smart contract to your wallet.
 						</Text>
 					</CardBody>
 					<CardFooter>
@@ -57,7 +57,7 @@ export default function Dashboard() {
 					</CardHeader>
 					<CardBody>
 						<Text>
-							Upload any file to Filecoin 
+							Upload any file to Filecoin network. 
 						</Text>
 					</CardBody>
 					<CardFooter>
