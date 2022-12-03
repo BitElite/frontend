@@ -13,31 +13,32 @@ import {
 } from '@chakra-ui/react'
 import { CopyIcon } from "@chakra-ui/icons"
 import React from 'react'
+import dayjs from "dayjs"
 
 const files = [
     {
         name: "No name",
         size: "0.80 MB",
         cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-        uploadedAt: new Date()
+        uploadedAt: new Date(1670051973608)
     },
     {
         name: "No name",
         size: "0.80 MB",
         cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-        uploadedAt: new Date()
+        uploadedAt: new Date(1670051973608)
     },
     {
         name: "No name",
         size: "0.80 MB",
         cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-        uploadedAt: new Date()
+        uploadedAt: new Date(1670051973608)
     },
     {
         name: "No name",
         size: "0.80 MB",
         cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-        uploadedAt: new Date()
+        uploadedAt: new Date(1670051973608)
     }
 ]
 
@@ -52,7 +53,7 @@ export default function Dashboard() {
     const toast = useToast()
 
     return (<>
-        <Heading>Dashboard</Heading>
+    <Heading>Dashboard</Heading>
         <TableContainer w="90%" marginTop="10px">
             <Table variant='unstyled' bgColor="blackAlpha.400" borderRadius="10px">
                 <Thead>
@@ -65,7 +66,9 @@ export default function Dashboard() {
                 </Thead>
                 <Tbody>
                     {files.map((file, index) => (
-                        <Tr key={"row-" + index}>
+                        <Tr key={"row-" + index} _hover={{
+                            backgroundColor: "blackAlpha.500"
+                        }}>
                             <Td><Text>{file.name}</Text></Td>
                             <Td style={{
                                 display: "flex",
@@ -95,7 +98,9 @@ export default function Dashboard() {
                                 />
                             </Td>
                             <Td><Text>{file.size}</Text></Td>
-                            <Td><Text>{file.uploadedAt.toLocaleDateString()}</Text></Td>
+                            <Td><Text>{
+                                dayjs(file.uploadedAt).format("MMMM D YYYY, h:mm:ss a")
+                            }</Text></Td>
                         </Tr>
                     ))}
                 </Tbody>
