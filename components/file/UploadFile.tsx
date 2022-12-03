@@ -25,7 +25,7 @@ const UploadFile = () => {
 
 		dispatch(setCurrentFile({
 			name: file.name,
-			size: file.size+" Bytes",
+			size: file.size,
 			cid: response.cid
 		}))
 	};

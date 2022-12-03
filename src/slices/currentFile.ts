@@ -15,7 +15,13 @@ export const currentFileSlice = createSlice({
     } as ICurrentFile,
     reducers: {
         setCurrentFile: (state, action) => {
-            state = action.payload
+            console.log(action.payload);
+            
+            state = {
+                name: action.payload.name,
+                size: action.payload.size,
+                cid: action.payload.cid,
+            }
         },
         resetCurrentFile: (state) => {
             state = {

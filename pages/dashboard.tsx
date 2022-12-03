@@ -18,13 +18,21 @@ import {
 	Flex,
 	Spacer,
 	Tooltip,
-} from '@chakra-ui/react'
-import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons"
-import React from 'react'
-import Swal from "sweetalert2"
-import dayjs from "dayjs"
-import { useAppSelector } from "../hooks/redux"
-import UploadFile from '../components/file/UploadFile';
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	ModalCloseButton,
+	useDisclosure,
+} from "@chakra-ui/react";
+import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import React from "react";
+import Swal from "sweetalert2";
+import dayjs from "dayjs";
+import { useAppSelector } from "../hooks/redux";
+import UploadFile from "../components/file/UploadFile";
 
 const truncateString = (str: string, num: number) => {
 	if (str.length <= num) {
@@ -34,18 +42,30 @@ const truncateString = (str: string, num: number) => {
 };
 
 export default function Dashboard() {
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const toast = useToast();
 	const files = useAppSelector((state) => state.files);
 	const currentFile = useAppSelector((state) => state.currentFile);
 
-	const handlePay = () => {
-
-	}
+	const handlePay = () => {};
 
 	return (
 		<>
 			<Heading>Dashboard</Heading>
 			<Flex width={"80%"} my={"10"}>
+				<Modal
+					closeOnOverlayClick={false}
+					isOpen={isOpen}
+					onClose={onClose}
+				>
+					<ModalOverlay />
+					<ModalContent>
+						
+						<ModalHeader>Your Balance is 21 FIL</ModalHeader>
+						<ModalCloseButton mt={"2"} />
+					</ModalContent>
+				</Modal>
+
 				<Card mx={"10"} width={"45%"}>
 					<CardHeader>
 						<Heading size="md">Withdraw</Heading>
@@ -59,8 +79,8 @@ export default function Dashboard() {
 					<CardFooter>
 						<Flex w={"100%"}>
 							<Button>Withdraw</Button>
-						    <Spacer />
-							<Button>Check Balance</Button>
+							<Spacer />
+							<Button onClick={onOpen}>Check Balance</Button>
 						</Flex>
 					</CardFooter>
 				</Card>
@@ -82,24 +102,84 @@ export default function Dashboard() {
 						<Heading size="md">Current File</Heading>
 					</CardHeader>
 					<CardBody>
-						<Flex w="100%" h="100%" direction="column" justifyContent="center" alignItems="center">
+						<Flex
+							w="100%"
+							h="100%"
+							direction="column"
+							justifyContent="center"
+							alignItems="center"
+						>
 							<Spacer />
-							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
-								<Text fontSize="lg" fontWeight="500" color="gray.500">File Name: </Text>
+							<Flex
+								w="100%"
+								h="100%"
+								direction="row"
+								justifyContent="center"
+								alignItems="center"
+							>
+								<Text
+									fontSize="lg"
+									fontWeight="500"
+									color="gray.500"
+								>
+									File Name:{" "}
+								</Text>
 								<Spacer />
-								<Text fontSize="lg" fontWeight="500" color="gray.100">{currentFile.name}</Text>
+								<Text
+									fontSize="lg"
+									fontWeight="500"
+									color="gray.100"
+								>
+									{currentFile.name}
+								</Text>
 							</Flex>
 							<Spacer />
-							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
-								<Text fontSize="lg" fontWeight="500" color="gray.500">File Size: </Text>
+							<Flex
+								w="100%"
+								h="100%"
+								direction="row"
+								justifyContent="center"
+								alignItems="center"
+							>
+								<Text
+									fontSize="lg"
+									fontWeight="500"
+									color="gray.500"
+								>
+									File Size:{" "}
+								</Text>
 								<Spacer />
-								<Text fontSize="lg" fontWeight="500" color="gray.100">{currentFile.size} Bytes</Text>
+								<Text
+									fontSize="lg"
+									fontWeight="500"
+									color="gray.100"
+								>
+									{currentFile.size} Bytes
+								</Text>
 							</Flex>
 							<Spacer />
-							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
-								<Text fontSize="lg" fontWeight="500" color="gray.500">CID: </Text>
+							<Flex
+								w="100%"
+								h="100%"
+								direction="row"
+								justifyContent="center"
+								alignItems="center"
+							>
+								<Text
+									fontSize="lg"
+									fontWeight="500"
+									color="gray.500"
+								>
+									CID:{" "}
+								</Text>
 								<Spacer />
-								<Text fontSize="lg" fontWeight="500" color="gray.100">{truncateString(currentFile.cid, 5)}</Text>
+								<Text
+									fontSize="lg"
+									fontWeight="500"
+									color="gray.100"
+								>
+									{truncateString(currentFile.cid, 5)}
+								</Text>
 							</Flex>
 							<Spacer />
 						</Flex>
@@ -127,9 +207,12 @@ export default function Dashboard() {
 						<Tbody>
 							{/* @ts-ignore */}
 							{files.map((file, index) => (
-								<Tr key={"row-" + index} _hover={{
-									backgroundColor: "blackAlpha.500"
-								}}>
+								<Tr
+									key={"row-" + index}
+									_hover={{
+										backgroundColor: "blackAlpha.500",
+									}}
+								>
 									<Td>
 										<Text>{file.name}</Text>
 									</Td>
@@ -179,7 +262,10 @@ export default function Dashboard() {
 													marginLeft: "5px",
 												}}
 												onClick={() => {
-													window.open(`https://cloudflare-ipfs.com/ipfs/${file.cid}`, "_blank");
+													window.open(
+														`https://cloudflare-ipfs.com/ipfs/${file.cid}`,
+														"_blank"
+													);
 												}}
 											/>
 										</Tooltip>
@@ -189,7 +275,9 @@ export default function Dashboard() {
 									</Td>
 									<Td>
 										<Text>
-											{dayjs(file.uploadedAt).format("MMM D YYYY, h:mm a")}
+											{dayjs(file.uploadedAt).format(
+												"MMM D YYYY, h:mm a"
+											)}
 										</Text>
 									</Td>
 								</Tr>
