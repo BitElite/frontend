@@ -2,6 +2,7 @@ import { Button, Box } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import Swal from 'sweetalert2'
 import generateCID from "../../utils/generateCID";
+import getHash from "../../utils/proofOfOwnership";
 
 const UploadFile = () => {
 	const inputRef: any = useRef();
@@ -13,13 +14,9 @@ const UploadFile = () => {
 
 	const onFileChange = async (e: any) => {
 		const file = e.target.files[0];
-		const buffer = await file.arrayBuffer();
-		let firstEle = (new Int8Array(buffer))[0];
-		const hashOfFirstByte=(await sha256(firstEle)).toString();
-        const hashOfFile=(await sha256(buffer)).toString();
-        const finalHash=await sha256(hashOfFile+hashOfFirstByte);
-        console.log(finalHash);
-        
+		const hash = await getHash(file);
+		console.log(hash);
+
 		const response = await generateCID(file);
 		console.log(response);
 	};
