@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react'
 import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons"
 import React from 'react'
+import Swal from "sweetalert2"
 import dayjs from "dayjs"
 import { useAppSelector } from "../hooks/redux"
 import UploadFile from '../components/file/UploadFile';
@@ -34,8 +35,12 @@ const truncateString = (str: string, num: number) => {
 
 export default function Dashboard() {
 	const toast = useToast();
-	// @ts-ignore
 	const files = useAppSelector((state) => state.files);
+	const currentFile = useAppSelector((state) => state.currentFile);
+
+	const handlePay = () => {
+
+	}
 
 	return (
 		<>
@@ -79,19 +84,19 @@ export default function Dashboard() {
 							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
 								<Text fontSize="lg" fontWeight="500" color="gray.500">File Name: </Text>
 								<Spacer />
-								<Text fontSize="lg" fontWeight="500" color="gray.100">image.png</Text>
+								<Text fontSize="lg" fontWeight="500" color="gray.100">{currentFile.name}</Text>
 							</Flex>
 							<Spacer />
 							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
 								<Text fontSize="lg" fontWeight="500" color="gray.500">File Size: </Text>
 								<Spacer />
-								<Text fontSize="lg" fontWeight="500" color="gray.100">8.90 KB</Text>
+								<Text fontSize="lg" fontWeight="500" color="gray.100">{currentFile.size} Bytes</Text>
 							</Flex>
 							<Spacer />
 							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
 								<Text fontSize="lg" fontWeight="500" color="gray.500">CID: </Text>
 								<Spacer />
-								<Text fontSize="lg" fontWeight="500" color="gray.100">bygdyish...huhdsd</Text>
+								<Text fontSize="lg" fontWeight="500" color="gray.100">{truncateString(currentFile.cid, 5)}</Text>
 							</Flex>
 							<Spacer />
 						</Flex>
@@ -99,7 +104,7 @@ export default function Dashboard() {
 					<CardFooter
 						style={{ display: "flex", justifyContent: "center" }}
 					>
-						<Button>Pay</Button>
+						<Button onClick={handlePay}>Pay</Button>
 					</CardFooter>
 				</Card>
 				<TableContainer w="90%" my={"10"} overflow="hidden">
