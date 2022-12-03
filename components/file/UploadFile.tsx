@@ -24,6 +24,8 @@ const UploadFile = ({ currentFile, setCurrentFile }: any) => {
 		const res = await sendCid(response.cid)
 		if (res === "Asset not found") {
 			const result = await sendFile(file, response.cid)
+			console.log("result")
+			console.log(result)
 			await pay(result, response.cid)
 		} else {
 
