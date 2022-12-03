@@ -13,8 +13,7 @@ export default function Home() {
     <>
       <Gradient />
       <BitEliteTitle />
-
-        <Connect />
+      <Connect />
       <Spacer />
     </>
   )

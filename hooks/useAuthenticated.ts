@@ -22,7 +22,7 @@ export function useAuthenticated(){
         // window.localStorage.setItem("token", token);
         console.log("Triggered");
         
-        router.push("/file")
+        router.push("/dashboard", {}, { shallow: true });
     }
 
     const isChainEthereum = (chainId: string) => {
