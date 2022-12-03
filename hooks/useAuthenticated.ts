@@ -19,9 +19,9 @@ export function useAuthenticated(){
             await switchChain("0x7AB7")
         }
         const signature = await signMessage("Signing");
-        // await sendSignature(signature)
-        // const token = await sendSignature(signature);
-        // window.localStorage.setItem("token", token);
+        await sendSignature(signature)
+        const response = await sendSignature(signature);
+        window.localStorage.setItem("token", response.data.token);
         console.log("Triggered");
         
         router.push("/dashboard");

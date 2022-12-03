@@ -3,8 +3,11 @@ import { useRef } from "react";
 import Swal from 'sweetalert2'
 import generateCID from "../../utils/generateCID";
 import getHash from "../../utils/proofOfOwnership";
+import { sendCid } from "../../api/cid";
+import { sendFile } from "../../api/file";
+import { send } from "process";
 
-const UploadFile = ({currentFile, setCurrentFile}: any) => {
+const UploadFile = ({ currentFile, setCurrentFile }: any) => {
 	const inputRef: any = useRef();
 
 	const handleUploadClick = () => {
@@ -16,10 +19,13 @@ const UploadFile = ({currentFile, setCurrentFile}: any) => {
 		const hash = await getHash(file);
 		console.log("File: ", file)
 		console.log("File's HASH: ", hash);
-
 		const response = await generateCID(file);
-		console.log("Generated CID", response);
+		const res = await sendCid(response.cid)
+		if (res === "Asset not found") {
+			await sendFile(file, response.cid)
+		} else {
 
+		}
 		setCurrentFile({
 			name: file.name,
 			size: file.size,
