@@ -16,6 +16,7 @@ import {
 	CardFooter,
 	Button,
 	Flex,
+	Divider,
 } from '@chakra-ui/react'
 import { CopyIcon } from "@chakra-ui/icons"
 import React from 'react'
@@ -32,6 +33,7 @@ const truncateString = (str: string, num: number) => {
 
 export default function Dashboard() {
 	const toast = useToast();
+	// @ts-ignore
 	const files = useAppSelector((state) => state.files);
 
 	return (
@@ -65,7 +67,27 @@ export default function Dashboard() {
 					</CardFooter>
 				</Card>
 			</Flex>
-			<TableContainer w="90%" marginTop="10px" overflow="hidden">
+			<Flex width={"79%"} my={"10"}>
+				<Card mx={"10"} width={"45%"} my={"10"}>
+					<CardHeader>
+						<Heading size="md">Current File</Heading>
+					</CardHeader>
+					<CardBody>
+						<Text>
+							File Name
+							<Divider orientation='horizontal' my={"5"} />
+							CID
+							<Divider orientation='horizontal' my={"5"} />
+							Size
+						</Text>
+					</CardBody>
+					<CardFooter
+						style={{ display: "flex", justifyContent: "center" }}
+					>
+						<Button>Pay</Button>
+					</CardFooter>
+				</Card>
+			<TableContainer w="90%" my={"10"} overflow="hidden">
 				<Table
 					variant="unstyled"
 					bgColor="blackAlpha.400"
@@ -80,6 +102,7 @@ export default function Dashboard() {
 						</Tr>
 					</Thead>
 					<Tbody>
+						{/* @ts-ignore */}
 						{files.map((file, index) => (
 							<Tr key={"row-" + index} _hover={{
 								backgroundColor: "blackAlpha.500"
@@ -134,6 +157,7 @@ export default function Dashboard() {
 					</Tbody>
 				</Table>
 			</TableContainer>
+		</Flex>
 		</>
 	);
 }
