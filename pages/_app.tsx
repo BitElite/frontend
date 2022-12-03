@@ -11,11 +11,11 @@ type AppProps = {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-        <MetaMaskProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </MetaMaskProvider>
+      <MetaMaskProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </MetaMaskProvider>
     </ChakraProvider>
   )
 }

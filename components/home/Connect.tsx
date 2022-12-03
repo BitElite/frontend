@@ -2,7 +2,7 @@ import { Button, Box } from "@chakra-ui/react";
 import { useAuthenticated } from "../../hooks/useAuthenticated";
 
 const Connect = () => {
-   
+
     const auth = useAuthenticated();
 
     return (

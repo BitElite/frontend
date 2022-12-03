@@ -2,7 +2,18 @@ import * as IPFS from 'ipfs-core'
 import CID from 'cids';
 
 export default async function generateCID(file: File) {
-    const ipfs = await IPFS.create()
+    let ipfs;
+    //@ts-ignore
+    if (!window.ipfs) {
+        ipfs = await IPFS.create()
+        //@ts-ignore
+        window.ipfs = ipfs;
+    } else { 
+        //@ts-ignore
+        ipfs = window.ipfs
+    }
+    //@ts-ignore
+   
     const response = await ipfs.add(file, {
         onlyHash: true
     })
