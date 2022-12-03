@@ -86,7 +86,7 @@ export default function Dashboard() {
 						</Text>
 					</CardBody>
 					<CardFooter>
-						<UploadFile/>
+						<Button>Upload</Button>
 					</CardFooter>
 				</Card>
 			</Flex>
