@@ -16,9 +16,10 @@ import {
 	CardFooter,
 	Button,
 	Flex,
-	Divider,
+	Spacer,
+	Tooltip,
 } from '@chakra-ui/react'
-import { CopyIcon } from "@chakra-ui/icons"
+import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons"
 import React from 'react'
 import dayjs from "dayjs"
 import { useAppSelector } from "../hooks/redux"
@@ -67,17 +68,33 @@ export default function Dashboard() {
 					</CardFooter>
 				</Card>
 			</Flex>
-			<Flex width={"79%"} my={"10"}>
+			<Flex width={"79%"} my={"5"}>
 				<Card mx={"10"} width={"45%"} my={"10"}>
 					<CardHeader>
 						<Heading size="md">Current File</Heading>
 					</CardHeader>
 					<CardBody>
-						<Text>File Name</Text>
-						<Divider orientation='horizontal' my={"5"} />
-						<Text>CID</Text>
-						<Divider orientation='horizontal' my={"5"} />
-						<Text>Size</Text>
+						<Flex w="100%" h="100%" direction="column" justifyContent="center" alignItems="center">
+							<Spacer />
+							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
+								<Text fontSize="lg" fontWeight="500" color="gray.500">File Name: </Text>
+								<Spacer />
+								<Text fontSize="lg" fontWeight="500" color="gray.100">image.png</Text>
+							</Flex>
+							<Spacer />
+							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
+								<Text fontSize="lg" fontWeight="500" color="gray.500">File Size: </Text>
+								<Spacer />
+								<Text fontSize="lg" fontWeight="500" color="gray.100">8.90 KB</Text>
+							</Flex>
+							<Spacer />
+							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
+								<Text fontSize="lg" fontWeight="500" color="gray.500">CID: </Text>
+								<Spacer />
+								<Text fontSize="lg" fontWeight="500" color="gray.100">bygdyish...huhdsd</Text>
+							</Flex>
+							<Spacer />
+						</Flex>
 					</CardBody>
 					<CardFooter
 						style={{ display: "flex", justifyContent: "center" }}
@@ -85,77 +102,94 @@ export default function Dashboard() {
 						<Button>Pay</Button>
 					</CardFooter>
 				</Card>
-			<TableContainer w="90%" my={"10"} overflow="hidden">
-				<Table
-					variant="unstyled"
-					bgColor="blackAlpha.400"
-					borderRadius="10px"
-				>
-					<Thead>
-						<Tr>
-							<Th>Name</Th>
-							<Th textAlign="center">CID</Th>
-							<Th>Size</Th>
-							<Th>Date</Th>
-						</Tr>
-					</Thead>
-					<Tbody>
-						{/* @ts-ignore */}
-						{files.map((file, index) => (
-							<Tr key={"row-" + index} _hover={{
-								backgroundColor: "blackAlpha.500"
-							}}>
-								<Td>
-									<Text>{file.name}</Text>
-								</Td>
-								<Td
-									style={{
-										display: "flex",
-										alignItems: "center",
-										justifyContent: "center",
-									}}
-								>
-									<Text fontFamily={"monospace"}>
-										{truncateString(file.cid, 7)}
-									</Text>
-									<IconButton
-										variant="outline"
-										colorScheme="teal"
-										aria-label="Copy CID"
-										size="sm"
-										icon={<CopyIcon />}
-										style={{
-											marginLeft: "10px",
-										}}
-										onClick={() => {
-											navigator.clipboard.writeText(
-												file.cid
-											);
-											toast({
-												title: "Copied CID",
-												description:
-													"The CID has been copied to your clipboard",
-												status: "success",
-												duration: 3000,
-												isClosable: true,
-											});
-										}}
-									/>
-								</Td>
-								<Td>
-									<Text>{file.size}</Text>
-								</Td>
-								<Td>
-									<Text>
-										{dayjs(file.uploadedAt).format("MMM D YYYY, h:mm a")}
-									</Text>
-								</Td>
+				<TableContainer w="90%" my={"10"} overflow="hidden">
+					<Table
+						variant="unstyled"
+						bgColor="blackAlpha.400"
+						borderRadius="10px"
+					>
+						<Thead>
+							<Tr>
+								<Th>Name</Th>
+								<Th textAlign="center">CID</Th>
+								<Th>Size</Th>
+								<Th>Date</Th>
 							</Tr>
-						))}
-					</Tbody>
-				</Table>
-			</TableContainer>
-		</Flex>
+						</Thead>
+						<Tbody>
+							{/* @ts-ignore */}
+							{files.map((file, index) => (
+								<Tr key={"row-" + index} _hover={{
+									backgroundColor: "blackAlpha.500"
+								}}>
+									<Td>
+										<Text>{file.name}</Text>
+									</Td>
+									<Td
+										style={{
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+										}}
+									>
+										<Text fontFamily={"monospace"}>
+											{truncateString(file.cid, 7)}
+										</Text>
+										<Tooltip label="Copy CID">
+											<IconButton
+												variant="outline"
+												colorScheme="teal"
+												aria-label="Copy CID"
+												size="sm"
+												icon={<CopyIcon />}
+												style={{
+													marginLeft: "10px",
+												}}
+												onClick={() => {
+													navigator.clipboard.writeText(
+														file.cid
+													);
+													toast({
+														title: "Copied CID",
+														description:
+															"The CID has been copied to your clipboard",
+														status: "success",
+														duration: 3000,
+														isClosable: true,
+													});
+												}}
+											/>
+										</Tooltip>
+										<Tooltip label="Open file">
+											<IconButton
+												variant="outline"
+												colorScheme="purple"
+												aria-label="Open CID"
+												size="sm"
+												icon={<ExternalLinkIcon />}
+												style={{
+													marginLeft: "5px",
+												}}
+												onClick={() => {
+													window.open(`https://cloudflare-ipfs.com/ipfs/${file.cid}`, "_blank");
+												}}
+											/>
+										</Tooltip>
+									</Td>
+									<Td>
+										<Text>{file.size}</Text>
+									</Td>
+									<Td>
+										<Text>
+											{dayjs(file.uploadedAt).format("MMM D YYYY, h:mm a")}
+										</Text>
+									</Td>
+								</Tr>
+							))}
+						</Tbody>
+					</Table>
+				</TableContainer>
+			</Flex>
 		</>
 	);
 }

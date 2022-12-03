@@ -34,7 +34,7 @@ export default function Header() {
                 bgColor="pink.300" 
                 style={{marginRight:"10px"}}
                 onClick={() => {auth.logout()}}
-            >Logout</Button>
+            >{auth.isWalletConnected?"Dashboard":"Logout"}</Button>
             <Tooltip label='Toggle theme'>
                 <IconButton variant='outline' aria-label="Toggle theme" icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />} onClick={toggleColorMode} />
             </Tooltip>
