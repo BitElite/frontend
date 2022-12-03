@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import filesSlicer from './slices/file'
+import currentFileSlicer from './slices/currentFile'
 
 export const store = configureStore({
   reducer: {
     files: filesSlicer,
+    currentFile: currentFileSlicer,
   },
 })
 
