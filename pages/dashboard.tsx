@@ -95,7 +95,7 @@ export default function Dashboard() {
 										}}
 									>
 										<Text fontFamily={"monospace"}>
-											{truncateString(file.cid, 10)}
+											{truncateString(file.cid, 7)}
 										</Text>
 										<IconButton
 											variant="outline"
@@ -126,7 +126,7 @@ export default function Dashboard() {
 									</Td>
 									<Td>
 										<Text>
-											{dayjs(file.uploadedAt).format("MMMM D YYYY, h:mm:ss a")}
+											{dayjs(file.uploadedAt).format("MMM D YYYY, h:mm a")}
 										</Text>
 									</Td>
 								</Tr>
