@@ -1,5 +1,6 @@
 import { Button, Box } from "@chakra-ui/react";
 import { useRef, useState } from "react";
+import Swal from 'sweetalert2'
 import generateCID from "../../utils/generateCID";
 
 const UploadFile = () => {
@@ -7,6 +8,7 @@ const UploadFile = () => {
 
 	const handleUploadClick = () => {
 		inputRef.current.click();
+
 	};
 
 	const onFileChange = async (e: any) => {

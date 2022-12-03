@@ -7,6 +7,12 @@ export interface IFile{
     uploadedAt: Date
 }
 
+export const sortFiles = (files: IFile[]) => {
+    return files.sort((a, b) => {
+        return b.uploadedAt.getTime() - a.uploadedAt.getTime()
+    })
+}
+
 export const filesSlice = createSlice({
     name: 'files',
     initialState: {
@@ -40,15 +46,18 @@ export const filesSlice = createSlice({
     reducers: {
         addFile: (state, action) => {
             state.files.push(action.payload)
+            state.files = sortFiles(state.files)
         },
 
         removeFile: (state, action) => {
             state.files = state.files.filter(file => file.cid !== action.payload)
+            state.files = sortFiles(state.files)
         },
 
         updateFile: (state, action) => {
             const index = state.files.findIndex(file => file.cid === action.payload.cid)
             state.files[index] = action.payload
+            state.files = sortFiles(state.files)
         }
     }
 })
