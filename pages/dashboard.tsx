@@ -26,10 +26,10 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import Swal from "sweetalert2";
 import React, { useEffect, useState } from "react";
-import { getRemainingBalance,withdrawFunds} from "../utils/contractInteractions";
+import { getRemainingBalance} from "../utils/contractInteractions"
 import dayjs from "dayjs";
-import { useAppSelector } from "../hooks/redux";
 import UploadFile from "../components/file/UploadFile";
 import { useAuthenticated } from "../hooks/useAuthenticated";
 
@@ -45,11 +45,34 @@ export default function Dashboard() {
 
 	const [userBalance,setUserBalance]=useState(0)
 	const toast = useToast();
-	const files = useAppSelector((state) => state.files);
-	const currentFile = useAppSelector((state) => state.currentFile);
-	const  auth = useAuthenticated();
-
-	const handlePay = () => {};
+	const [ files, setFiles ] = useState([
+		{
+			name: "test.png",
+			size: 100,
+			cid: "Qm...",
+			uploadedAt: new Date(3000000000000).getTime()
+		}
+	])
+	const [ currentFile, setCurrentFile ] = useState({
+		name: "test.png",
+		size: 100,
+		cid: "Qm..."
+	})
+	
+	const handlePay = () => {
+		Swal.fire({
+			title: 'Payment',
+			text: "500 FIL needs to be payed",
+			showCancelButton: false,
+			confirmButtonText: 'Pay',
+			showLoaderOnConfirm: true,
+			allowOutsideClick: () => !Swal.isLoading()
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  //
+			}
+		  })
+	};
 
 	const handleWithdraw = async () => {
 		const response = await withdrawFunds();
@@ -114,7 +137,7 @@ export default function Dashboard() {
 						<Text>Upload any file to Filecoin network.</Text>
 					</CardBody>
 					<CardFooter>
-						<UploadFile />
+						<UploadFile currentFile={currentFile} setCurrentFile={setCurrentFile} />
 					</CardFooter>
 				</Card>
 			</Flex>
