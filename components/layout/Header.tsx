@@ -1,8 +1,11 @@
 import React from 'react'
-import { Flex, Spacer, Link, Heading, useColorModeValue, Tooltip, IconButton, useColorMode } from '@chakra-ui/react'
+import { Flex, Spacer, Link, Heading, useColorModeValue, Tooltip, IconButton, useColorMode, Button } from '@chakra-ui/react'
 import { MoonIcon, SunIcon } from "@chakra-ui/icons"
+import { useAuthenticated } from '../../hooks/useAuthenticated'
 
 export default function Header() {
+
+    const auth= useAuthenticated();
     const { toggleColorMode, colorMode } = useColorMode()
     return (
         <Flex h="3rem" w="100%" direction="row" alignItems="center" padding="5px" textAlign="center">
@@ -27,6 +30,11 @@ export default function Header() {
             }}>Use Cases</Link> */}
             <Spacer />
             <Spacer />
+            <Button
+                bgColor="pink.300" 
+                style={{marginRight:"10px"}}
+                onClick={() => {auth.logout()}}
+            >Logout</Button>
             <Tooltip label='Toggle theme'>
                 <IconButton variant='outline' aria-label="Toggle theme" icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />} onClick={toggleColorMode} />
             </Tooltip>

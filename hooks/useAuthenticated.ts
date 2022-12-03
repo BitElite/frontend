@@ -17,10 +17,12 @@ export function useAuthenticated(){
             await switchChain("0x7AB7")
         }
         const signature = await signMessage("Signing");
-        await sendSignature(signature)
+        // await sendSignature(signature)
         // const token = await sendSignature(signature);
         // window.localStorage.setItem("token", token);
-        router.push("file")
+        console.log("Triggered");
+        
+        router.push("/file")
     }
 
     const isChainEthereum = (chainId: string) => {
@@ -32,10 +34,9 @@ export function useAuthenticated(){
         //@ts-ignore
         setToken(_token)
         setIsConnected(status === "connected")
-    }, [])
-   
-    console.log(isConnected);
+    }, [status])
     
+ 
 
     const auth = {
         connectWallet: connectToMetamask,
