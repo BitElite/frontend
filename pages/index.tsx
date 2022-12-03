@@ -13,9 +13,8 @@ export default function Home() {
     <>
       <Gradient />
       <BitEliteTitle />
-      <Tooltip label='Connect your wallet'>
+
         <Connect />
-      </Tooltip>
       <Spacer />
     </>
   )

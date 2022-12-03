@@ -29,8 +29,8 @@ const Connect = () => {
 
     return (
         <Box marginTop="1.5rem">
-            {!isConnected ?
-                <Button bgColor="pink.300" onClick={connectToMetamask}>Connect</Button> :
+            {!auth.isWalletConnected ?
+                <Button bgColor="pink.300" onClick={auth.connectWallet}>Connect</Button> :
                 <Button>Connected</Button>}
         </Box>
     )
