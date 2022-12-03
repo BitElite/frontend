@@ -68,7 +68,7 @@ export default function Dashboard() {
 					</CardFooter>
 				</Card>
 			</Flex>
-			<Flex width={"79%"} my={"5"}>
+			<Flex width={"79%"} mb={"10"}>
 				<Card mx={"10"} width={"45%"} my={"10"}>
 					<CardHeader>
 						<Heading size="md">Current File</Heading>
