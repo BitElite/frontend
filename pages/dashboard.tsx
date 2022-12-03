@@ -16,14 +16,15 @@ import {
 	CardFooter,
 	Button,
 	Flex,
-	Divider,
 	Spacer,
-} from "@chakra-ui/react";
-import { CopyIcon } from "@chakra-ui/icons";
-import React from "react";
-import dayjs from "dayjs";
-import { useAppSelector } from "../hooks/redux";
-import UploadFile from "../components/file/UploadFile";
+	Tooltip,
+} from '@chakra-ui/react'
+import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons"
+import React from 'react'
+import Swal from "sweetalert2"
+import dayjs from "dayjs"
+import { useAppSelector } from "../hooks/redux"
+import UploadFile from '../components/file/UploadFile';
 
 const truncateString = (str: string, num: number) => {
 	if (str.length <= num) {
@@ -34,8 +35,12 @@ const truncateString = (str: string, num: number) => {
 
 export default function Dashboard() {
 	const toast = useToast();
-	// @ts-ignore
 	const files = useAppSelector((state) => state.files);
+	const currentFile = useAppSelector((state) => state.currentFile);
+
+	const handlePay = () => {
+
+	}
 
 	return (
 		<>
@@ -77,16 +82,32 @@ export default function Dashboard() {
 						<Heading size="md">Current File</Heading>
 					</CardHeader>
 					<CardBody>
-						<Text>File Name</Text>
-						<Divider orientation="horizontal" my={"5"} />
-						<Text>CID</Text>
-						<Divider orientation="horizontal" my={"5"} />
-						<Text>Size</Text>
+						<Flex w="100%" h="100%" direction="column" justifyContent="center" alignItems="center">
+							<Spacer />
+							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
+								<Text fontSize="lg" fontWeight="500" color="gray.500">File Name: </Text>
+								<Spacer />
+								<Text fontSize="lg" fontWeight="500" color="gray.100">{currentFile.name}</Text>
+							</Flex>
+							<Spacer />
+							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
+								<Text fontSize="lg" fontWeight="500" color="gray.500">File Size: </Text>
+								<Spacer />
+								<Text fontSize="lg" fontWeight="500" color="gray.100">{currentFile.size} Bytes</Text>
+							</Flex>
+							<Spacer />
+							<Flex w="100%" h="100%" direction="row" justifyContent="center" alignItems="center">
+								<Text fontSize="lg" fontWeight="500" color="gray.500">CID: </Text>
+								<Spacer />
+								<Text fontSize="lg" fontWeight="500" color="gray.100">{truncateString(currentFile.cid, 5)}</Text>
+							</Flex>
+							<Spacer />
+						</Flex>
 					</CardBody>
 					<CardFooter
 						style={{ display: "flex", justifyContent: "center" }}
 					>
-						<Button>Pay</Button>
+						<Button onClick={handlePay}>Pay</Button>
 					</CardFooter>
 				</Card>
 				<TableContainer w="90%" my={"10"} overflow="hidden">
@@ -106,12 +127,9 @@ export default function Dashboard() {
 						<Tbody>
 							{/* @ts-ignore */}
 							{files.map((file, index) => (
-								<Tr
-									key={"row-" + index}
-									_hover={{
-										backgroundColor: "blackAlpha.500",
-									}}
-								>
+								<Tr key={"row-" + index} _hover={{
+									backgroundColor: "blackAlpha.500"
+								}}>
 									<Td>
 										<Text>{file.name}</Text>
 									</Td>
@@ -125,38 +143,53 @@ export default function Dashboard() {
 										<Text fontFamily={"monospace"}>
 											{truncateString(file.cid, 7)}
 										</Text>
-										<IconButton
-											variant="outline"
-											colorScheme="teal"
-											aria-label="Copy CID"
-											size="sm"
-											icon={<CopyIcon />}
-											style={{
-												marginLeft: "10px",
-											}}
-											onClick={() => {
-												navigator.clipboard.writeText(
-													file.cid
-												);
-												toast({
-													title: "Copied CID",
-													description:
-														"The CID has been copied to your clipboard",
-													status: "success",
-													duration: 3000,
-													isClosable: true,
-												});
-											}}
-										/>
+										<Tooltip label="Copy CID">
+											<IconButton
+												variant="outline"
+												colorScheme="teal"
+												aria-label="Copy CID"
+												size="sm"
+												icon={<CopyIcon />}
+												style={{
+													marginLeft: "10px",
+												}}
+												onClick={() => {
+													navigator.clipboard.writeText(
+														file.cid
+													);
+													toast({
+														title: "Copied CID",
+														description:
+															"The CID has been copied to your clipboard",
+														status: "success",
+														duration: 3000,
+														isClosable: true,
+													});
+												}}
+											/>
+										</Tooltip>
+										<Tooltip label="Open file">
+											<IconButton
+												variant="outline"
+												colorScheme="purple"
+												aria-label="Open CID"
+												size="sm"
+												icon={<ExternalLinkIcon />}
+												style={{
+													marginLeft: "5px",
+												}}
+												onClick={() => {
+													window.open(`https://cloudflare-ipfs.com/ipfs/${file.cid}`, "_blank");
+												}}
+											/>
+										</Tooltip>
 									</Td>
 									<Td>
 										<Text>{file.size}</Text>
 									</Td>
 									<Td>
 										<Text>
-											{dayjs(file.uploadedAt).format(
-												"MMM D YYYY, h:mm a"
-											)}
+											{dayjs(file.uploadedAt).format("MMM D YYYY, h:mm a")}
 										</Text>
 									</Td>
 								</Tr>

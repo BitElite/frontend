@@ -7,6 +7,6 @@ export default async function generateCID(file: File) {
     const cid = new CID(response.path)
     const newCid = cid.toV1().toString()
     //@ts-ignore
-    response.CID = newCid
+    response.cid = newCid
     return response
 }

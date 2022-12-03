@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { IFile as ICurrentFile } from "./file"
+
+export interface ICurrentFile{
+    name: string,
+    size: number,
+    cid: string
+}
 
 export const currentFileSlice = createSlice({
     name: 'currentFile',
     initialState: {
         name: "No name",
-        size: "0.00 MB",
+        size: 0,
         cid: "...",
-        uploadedAt: new Date(0),
     } as ICurrentFile,
     reducers: {
         setCurrentFile: (state, action) => {
@@ -16,9 +20,8 @@ export const currentFileSlice = createSlice({
         resetCurrentFile: (state) => {
             state = {
                 name: "No name",
-                size: "0.00 MB",
+                size: 0,
                 cid: "...",
-                uploadedAt: new Date(0),
             }
         }
     }
