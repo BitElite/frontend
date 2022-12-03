@@ -73,13 +73,11 @@ export default function Dashboard() {
 						<Heading size="md">Current File</Heading>
 					</CardHeader>
 					<CardBody>
-						<Text>
-							File Name
-							<Divider orientation='horizontal' my={"5"} />
-							CID
-							<Divider orientation='horizontal' my={"5"} />
-							Size
-						</Text>
+						<Text>File Name</Text>
+						<Divider orientation='horizontal' my={"5"} />
+						<Text>CID</Text>
+						<Divider orientation='horizontal' my={"5"} />
+						<Text>Size</Text>
 					</CardBody>
 					<CardFooter
 						style={{ display: "flex", justifyContent: "center" }}
