@@ -68,7 +68,7 @@ export default function Dashboard() {
 					</CardHeader>
 					<CardBody>
 						<Text>
-							Withdraw the amount.
+							Withdraw the amount 
 						</Text>
 					</CardBody>
 					<CardFooter>
@@ -150,7 +150,7 @@ export default function Dashboard() {
 									</Td>
 									<Td>
 										<Text>
-											{file.uploadedAt.toLocaleDateString()}
+											{dayjs(file.uploadedAt).format("MMMM D YYYY, h:mm:ss a")}
 										</Text>
 									</Td>
 								</Tr>
