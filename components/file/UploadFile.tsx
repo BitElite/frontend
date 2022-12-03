@@ -13,6 +13,8 @@ const UploadFile = () => {
         const file = e.target.files[0]
         const response=await generateCID(file);
         console.log(response);
+        //@ts-ignore
+        window.file = file
     }
 
     const [file, setFile] = useState()

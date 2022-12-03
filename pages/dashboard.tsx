@@ -20,6 +20,7 @@ import {
 import { CopyIcon } from "@chakra-ui/icons"
 import React from 'react'
 import dayjs from "dayjs"
+import UploadFile from '../components/file/UploadFile';
 
 const files = [
 	{
@@ -81,11 +82,11 @@ export default function Dashboard() {
 					</CardHeader>
 					<CardBody>
 						<Text>
-							Upload any file to Filecoin.
+							Upload any file to Filecoin 
 						</Text>
 					</CardBody>
 					<CardFooter>
-						<Button>Upload</Button>
+						<UploadFile/>
 					</CardFooter>
 				</Card>
 			</Flex>
