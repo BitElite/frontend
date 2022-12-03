@@ -32,7 +32,7 @@ const truncateString = (str: string, num: number) => {
 
 export default function Dashboard() {
 	const toast = useToast();
-	const { files } = useAppSelector((state) => state.files);
+	const files = useAppSelector((state) => state.files);
 
 	return (
 		<>
