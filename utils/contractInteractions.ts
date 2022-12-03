@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 // @ts-ignore
-import ABI from "../contracts/ABI.json";
+import ABI from "../contract/ABI.json"
 
 const contractAddr="Paste address here"
 
@@ -13,7 +13,7 @@ export async function withdrawFunds(){
         const signer = provider.getSigner()
         const contract = new ethers.Contract(
             contractAddr,
-            ABI,
+            ABI.abi,
             signer
         );
 
@@ -35,7 +35,7 @@ export async function pay(price:string){
         const signer = provider.getSigner()
         const contract = new ethers.Contract(
             contractAddr,
-            ABI,
+            ABI.abi,
             signer
         );
 
@@ -61,7 +61,7 @@ export async function addOwner(CID:string,size:string){
         const signer = provider.getSigner()
         const contract = new ethers.Contract(
             contractAddr,
-            ABI,
+            ABI.abi,
             signer
         );
 
@@ -83,7 +83,7 @@ export async function getRemainingBalance(address:string){
         const signer = provider.getSigner()
         const contract = new ethers.Contract(
             contractAddr,
-            ABI,
+            ABI.abi,
             signer
         );
 

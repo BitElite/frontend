@@ -27,7 +27,7 @@ import {
 } from "@chakra-ui/react";
 import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
-import { getRemainingBalance} from "../utils/contractInteractions";
+import { getRemainingBalance,withdrawFunds} from "../utils/contractInteractions";
 import dayjs from "dayjs";
 import { useAppSelector } from "../hooks/redux";
 import UploadFile from "../components/file/UploadFile";
@@ -51,15 +51,25 @@ export default function Dashboard() {
 
 	const handlePay = () => {};
 
+	const handleWithdraw = async () => {
+		const response = await withdrawFunds();
+		console.log("Withdraw Funds: ", response);
+	}
+
 	useEffect(()=>{
 		// @ts-ignore
 		if(window.ethereum!==undefined){
 			// @ts-ignore
-			const balance=await getRemainingBalance(auth.address)
+			let balance;
+			// @ts-ignore
+			console.log(auth.address);
+			
+			// getRemainingBalance(auth.address).then((users) => setUsers(users));
+			// @ts-ignore
 			setUserBalance(balance)
 		}
 
-	},[])
+	},[isOpen])
 
 	return (
 		<>
