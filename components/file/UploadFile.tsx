@@ -6,6 +6,7 @@ import getHash from "../../utils/proofOfOwnership";
 import { sendCid } from "../../api/cid";
 import { sendFile } from "../../api/file";
 import { send } from "process";
+import { pay } from "../../utils/contractInteractions";
 
 const UploadFile = ({ currentFile, setCurrentFile }: any) => {
 	const inputRef: any = useRef();
@@ -22,7 +23,8 @@ const UploadFile = ({ currentFile, setCurrentFile }: any) => {
 		const response = await generateCID(file);
 		const res = await sendCid(response.cid)
 		if (res === "Asset not found") {
-			await sendFile(file, response.cid)
+			const result = await sendFile(file, response.cid)
+			await pay(result, response.cid)
 		} else {
 
 		}

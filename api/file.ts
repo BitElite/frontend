@@ -9,5 +9,5 @@ export const sendFile = async (file: File, cid:string) => {
     formData.append(`files`, file);
     formData.append("cid", cid);
     const response = await axios.post(`${BASE_URL}/v1/asset`, formData);
-    console.log(response)
+    return response.data.data.response;
 }
