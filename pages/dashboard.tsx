@@ -52,11 +52,16 @@ export default function Dashboard() {
 					</CardHeader>
 					<CardBody>
 						<Text>
-							Withdraw the amount from the smart contract to your wallet.
+							Withdraw the amount from the smart contract to your
+							wallet.
 						</Text>
 					</CardBody>
 					<CardFooter>
-						<Button>Withdraw</Button>
+						<Flex w={"100%"}>
+							<Button>Withdraw</Button>
+						    <Spacer />
+							<Button>Check Balance</Button>
+						</Flex>
 					</CardFooter>
 				</Card>
 				<Card width={"45%"}>
@@ -64,9 +69,7 @@ export default function Dashboard() {
 						<Heading size="md">Upload a file</Heading>
 					</CardHeader>
 					<CardBody>
-						<Text>
-							Upload any file to Filecoin network.
-						</Text>
+						<Text>Upload any file to Filecoin network.</Text>
 					</CardBody>
 					<CardFooter>
 						<UploadFile />
