@@ -22,16 +22,16 @@ import {
 	ModalOverlay,
 	ModalContent,
 	ModalHeader,
-	ModalFooter,
-	ModalBody,
 	ModalCloseButton,
 	useDisclosure,
 } from "@chakra-ui/react";
 import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
-import React, { useState } from "react";
 import Swal from "sweetalert2";
+import React, { useEffect, useState } from "react";
+import { getRemainingBalance} from "../utils/contractInteractions"
 import dayjs from "dayjs";
 import UploadFile from "../components/file/UploadFile";
+import { useAuthenticated } from "../hooks/useAuthenticated";
 
 const truncateString = (str: string, num: number) => {
 	if (str.length <= num) {
@@ -42,6 +42,8 @@ const truncateString = (str: string, num: number) => {
 
 export default function Dashboard() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	const [userBalance,setUserBalance]=useState(0)
 	const toast = useToast();
 	const [ files, setFiles ] = useState([
 		{
@@ -72,6 +74,16 @@ export default function Dashboard() {
 		  })
 	};
 
+	useEffect(()=>{
+		// @ts-ignore
+		if(window.ethereum!==undefined){
+			// @ts-ignore
+			const balance=await getRemainingBalance(auth.address)
+			setUserBalance(balance)
+		}
+
+	},[])
+
 	return (
 		<>
 			<Heading>Dashboard</Heading>
@@ -84,7 +96,7 @@ export default function Dashboard() {
 					<ModalOverlay />
 					<ModalContent>
 						
-						<ModalHeader>Your Balance is 21 FIL</ModalHeader>
+						<ModalHeader>Your Balance is {userBalance} FIL</ModalHeader>
 						<ModalCloseButton mt={"2"} />
 					</ModalContent>
 				</Modal>
