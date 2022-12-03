@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 // @ts-ignore
 import ABI from "../contract/ABI.json"
 
-const contractAddr="Paste address here"
+const contractAddr="0x82F4Ee0459Dd1fD9c58DbCD07691C35638605608"
 
 
 export async function withdrawFunds(){
@@ -28,6 +28,8 @@ export async function withdrawFunds(){
 }
 
 export async function pay(price:string){
+    console.log("triggered");
+    
     // @ts-ignore
     if(typeof window.ethereum!=="undefined"){
         // @ts-ignore

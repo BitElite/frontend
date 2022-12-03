@@ -28,7 +28,7 @@ import {
 import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
 import React, { useEffect, useState } from "react";
-import { getRemainingBalance} from "../utils/contractInteractions"
+import { getRemainingBalance,withdrawFunds,pay} from "../utils/contractInteractions"
 import dayjs from "dayjs";
 import UploadFile from "../components/file/UploadFile";
 import { useAuthenticated } from "../hooks/useAuthenticated";
@@ -42,6 +42,7 @@ const truncateString = (str: string, num: number) => {
 
 export default function Dashboard() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const auth=useAuthenticated()
 
 	const [userBalance,setUserBalance]=useState(0)
 	const toast = useToast();
@@ -69,7 +70,10 @@ export default function Dashboard() {
 			allowOutsideClick: () => !Swal.isLoading()
 		  }).then((result) => {
 			if (result.isConfirmed) {
-			  //
+				// todo: add pay function.
+				Swal.fire({
+					title: "confirm acknowledgement",
+				  })
 			}
 		  })
 	};
@@ -123,7 +127,7 @@ export default function Dashboard() {
 					</CardBody>
 					<CardFooter>
 						<Flex w={"100%"}>
-							<Button>Withdraw</Button>
+							<Button onClick={handleWithdraw}>Withdraw</Button>
 							<Spacer />
 							<Button onClick={onOpen}>Check Balance</Button>
 						</Flex>

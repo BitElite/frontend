@@ -24,7 +24,7 @@ export function useAuthenticated(){
         // window.localStorage.setItem("token", token);
         console.log("Triggered");
         
-        router.push("/dashboard", {}, { shallow: true });
+        router.push("/dashboard");
     }
 
     const isChainEthereum = (chainId: string) => {
