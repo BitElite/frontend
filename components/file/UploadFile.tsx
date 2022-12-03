@@ -1,14 +1,11 @@
 import { Button, Box } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Swal from 'sweetalert2'
-import { useAppDispatch } from "../../hooks/redux";
 import generateCID from "../../utils/generateCID";
 import getHash from "../../utils/proofOfOwnership";
-import { setCurrentFile } from "../../src/slices/currentFile";
 
-const UploadFile = () => {
+const UploadFile = ({currentFile, setCurrentFile}: any) => {
 	const inputRef: any = useRef();
-	const dispatch = useAppDispatch();
 
 	const handleUploadClick = () => {
 		inputRef.current.click();
@@ -23,11 +20,11 @@ const UploadFile = () => {
 		const response = await generateCID(file);
 		console.log("Generated CID", response);
 
-		dispatch(setCurrentFile({
+		setCurrentFile({
 			name: file.name,
 			size: file.size,
 			cid: response.cid
-		}))
+		})
 	};
 
     async function sha256(message:any) {

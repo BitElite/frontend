@@ -28,10 +28,9 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import dayjs from "dayjs";
-import { useAppSelector } from "../hooks/redux";
 import UploadFile from "../components/file/UploadFile";
 
 const truncateString = (str: string, num: number) => {
@@ -44,10 +43,34 @@ const truncateString = (str: string, num: number) => {
 export default function Dashboard() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const toast = useToast();
-	const files = useAppSelector((state) => state.files);
-	const currentFile = useAppSelector((state) => state.currentFile);
-
-	const handlePay = () => {};
+	const [ files, setFiles ] = useState([
+		{
+			name: "test.png",
+			size: 100,
+			cid: "Qm...",
+			uploadedAt: new Date(3000000000000).getTime()
+		}
+	])
+	const [ currentFile, setCurrentFile ] = useState({
+		name: "test.png",
+		size: 100,
+		cid: "Qm..."
+	})
+	
+	const handlePay = () => {
+		Swal.fire({
+			title: 'Payment',
+			text: "500 FIL needs to be payed",
+			showCancelButton: false,
+			confirmButtonText: 'Pay',
+			showLoaderOnConfirm: true,
+			allowOutsideClick: () => !Swal.isLoading()
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  //
+			}
+		  })
+	};
 
 	return (
 		<>
@@ -92,7 +115,7 @@ export default function Dashboard() {
 						<Text>Upload any file to Filecoin network.</Text>
 					</CardBody>
 					<CardFooter>
-						<UploadFile />
+						<UploadFile currentFile={currentFile} setCurrentFile={setCurrentFile} />
 					</CardFooter>
 				</Card>
 			</Flex>
