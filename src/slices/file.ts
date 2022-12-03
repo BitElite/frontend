@@ -4,12 +4,12 @@ export interface IFile {
     name?: string
     cid: string
     size: string
-    uploadedAt: Date
+    uploadedAt: number
 }
 
 export const sortFiles = (files: IFile[]) => {
     return files.sort((a, b) => {
-        return b.uploadedAt.getTime() - a.uploadedAt.getTime()
+        return b.uploadedAt - a.uploadedAt
     })
 }
 
@@ -20,25 +20,25 @@ export const filesSlice = createSlice({
             name: "No name",
             size: "0.80 MB",
             cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-            uploadedAt: new Date(1670051973608),
+            uploadedAt: new Date(1670051973608).getTime(),
         },
         {
             name: "No name",
             size: "0.80 MB",
             cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-            uploadedAt: new Date(1670051973608),
+            uploadedAt: new Date(1670051973608).getTime()
         },
         {
             name: "No name",
             size: "0.80 MB",
             cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-            uploadedAt: new Date(1670051973608),
+            uploadedAt: new Date(1670051973608).getTime()
         },
         {
             name: "No name",
             size: "0.80 MB",
             cid: "bafybeifued2wl2nkkb4xddpmiusgv22rfsgxq23vg5dwyjvtczovpw6j4m",
-            uploadedAt: new Date(1670051973608),
+            uploadedAt: new Date(1670051973608).getTime()
         },
     ] as IFile[]
     ,
