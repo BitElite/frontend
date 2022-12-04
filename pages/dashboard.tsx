@@ -32,6 +32,7 @@ import { getRemainingBalance, withdrawFunds, pay } from "../utils/contractIntera
 import dayjs from "dayjs";
 import UploadFile from "../components/file/UploadFile";
 import { useAuthenticated } from "../hooks/useAuthenticated";
+import Head from "next/head"
 
 const truncateString = (str: string, num: number) => {
 	if (str.length <= num) {
@@ -100,6 +101,9 @@ export default function Dashboard() {
 
 	return (
 		<>
+			<Head>
+				<title>Dashboard</title>
+			</Head>
 			<Heading>Dashboard</Heading>
 			<Flex width={"80%"} my={"10"}>
 				<Modal

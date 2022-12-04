@@ -23,21 +23,24 @@ const UploadFile = ({ currentFile, setCurrentFile }: any) => {
 		console.log("File's HASH: ", hash);
 		const response = await generateCID(file);
 		const res = await sendCid(response.cid)
-		if (res === "Asset not found") {
-			const result = await sendFile(file, response.cid)
-			const txnHash = await pay(result, response.cid)
-			await sendHash(txnHash, response.cid)
-		} else {
-			const price = await getPrice(response.cid, file.size);
-			const txnHash = await pay(price, response.cid)
-			await sendHash(txnHash, response.cid)
-		}
-		await addOwner(response.cid, `${Math.floor(file.size / 1024)}`)
 		setCurrentFile({
 			name: file.name,
 			size: file.size,
 			cid: response.cid
 		})
+		if (res === "Asset not found") {
+			console.log("Asset not found")
+			const result = await sendFile(file, response.cid)
+			console.log("Price: ", result)
+			const txnHash = await pay(result, response.cid)
+			await sendHash(txnHash, response.cid)
+		} else {
+			const price = await getPrice(response.cid, file.size);
+			console.log("Price: ", price)
+			const txnHash = await pay(price.data.price, response.cid)
+			await sendHash(txnHash, response.cid)
+		}
+		await addOwner(response.cid, `${Math.floor(file.size / 1024)}`)
 	};
 
 	return (
