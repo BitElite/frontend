@@ -7,7 +7,7 @@ import { sendCid } from "../../api/cid";
 import { sendFile } from "../../api/file";
 import { send } from "process";
 import { addOwner, pay } from "../../utils/contractInteractions";
-import { sendHash } from "../../api/hash";
+import { getPrice, sendHash } from "../../api/hash";
 
 const UploadFile = ({ currentFile, setCurrentFile }: any) => {
 	const inputRef: any = useRef();
@@ -27,11 +27,12 @@ const UploadFile = ({ currentFile, setCurrentFile }: any) => {
 			const result = await sendFile(file, response.cid)
 			const txnHash = await pay(result, response.cid)
 			await sendHash(txnHash, response.cid)
-			console.log(file)
-			await addOwner(response.cid, `${Math.floor(file.size / 1024)}`)
 		} else {
-
+			const price = await getPrice(response.cid, file.size);
+			const txnHash = await pay(price, response.cid)
+			await sendHash(txnHash, response.cid)
 		}
+		await addOwner(response.cid, `${Math.floor(file.size / 1024)}`)
 		setCurrentFile({
 			name: file.name,
 			size: file.size,
