@@ -19,5 +19,5 @@ export const getPrice=async (cid:string, fileSize:number)=>{
         ipfsCid:cid
     });
     console.log(response)
-    return response.data;
+    return response.data.data.price;
 }
