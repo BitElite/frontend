@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 // @ts-ignore
 import ABI from "../contract/ABI.json"
 
-const contractAddr="0x82F4Ee0459Dd1fD9c58DbCD07691C35638605608"
+const contractAddr="0x13fd12E2B1e2e9517AB7D2175e3e64D9663dBd8b"
 
 
 export async function withdrawFunds(){
@@ -42,7 +42,7 @@ export async function pay(price:string, CID:string){
 
         try{
             const transaction = await contract.receivePay(
-                ethers.utils.formatBytes32String("hello"),
+                CID,
                 { value: ethers.utils.parseEther(price) }
             );
             await transaction.wait()
@@ -54,9 +54,7 @@ export async function pay(price:string, CID:string){
 }
 
 
-export async function addOwner(CID:string,size:string){
-    const bytes32CID=ethers.utils.formatBytes32String(CID);
-    
+export async function addOwner(CID:string, size:string){
     // @ts-ignore
     if(typeof window.ethereum!=="undefined"){
         // @ts-ignore
@@ -67,9 +65,8 @@ export async function addOwner(CID:string,size:string){
             ABI.abi,
             signer
         );
-
         try{
-            const transaction = await contract.addOwner(bytes32CID,size);
+            const transaction = await contract.addOwner(CID, size, signer.getAddress());
             await transaction.wait()
             console.log(`${transaction.hash} was mined`);
         } catch (error){
