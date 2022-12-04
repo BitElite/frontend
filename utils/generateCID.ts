@@ -18,7 +18,8 @@ export default async function generateCID(file: File) {
         onlyHash: true
     })
     const cid = new CID(response.path)
-    const newCid = cid.toV1().toString()
+    const newCid = cid.toV1().toString("base32")
+    console.log(newCid)
     //@ts-ignore
     response.cid = newCid
     return response

@@ -6,7 +6,8 @@ import getHash from "../../utils/proofOfOwnership";
 import { sendCid } from "../../api/cid";
 import { sendFile } from "../../api/file";
 import { send } from "process";
-import { pay } from "../../utils/contractInteractions";
+import { addOwner, pay } from "../../utils/contractInteractions";
+import { sendHash } from "../../api/hash";
 
 const UploadFile = ({ currentFile, setCurrentFile }: any) => {
 	const inputRef: any = useRef();
@@ -24,9 +25,10 @@ const UploadFile = ({ currentFile, setCurrentFile }: any) => {
 		const res = await sendCid(response.cid)
 		if (res === "Asset not found") {
 			const result = await sendFile(file, response.cid)
-			console.log("result")
-			console.log(result)
-			await pay(result, response.cid)
+			const txnHash = await pay(result, response.cid)
+			await sendHash(txnHash, response.cid)
+			console.log(file)
+			await addOwner(response.cid, `${Math.floor(file.size / 1024)}`)
 		} else {
 
 		}
