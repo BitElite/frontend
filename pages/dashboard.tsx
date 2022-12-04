@@ -28,7 +28,7 @@ import {
 import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Swal from "sweetalert2";
 import React, { useEffect, useState } from "react";
-import { getRemainingBalance,withdrawFunds,pay} from "../utils/contractInteractions"
+import { getRemainingBalance, withdrawFunds, pay } from "../utils/contractInteractions"
 import dayjs from "dayjs";
 import UploadFile from "../components/file/UploadFile";
 import { useAuthenticated } from "../hooks/useAuthenticated";
@@ -42,11 +42,11 @@ const truncateString = (str: string, num: number) => {
 
 export default function Dashboard() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const auth=useAuthenticated()
+	const auth = useAuthenticated()
 
-	const [userBalance,setUserBalance]=useState(0)
+	const [userBalance, setUserBalance] = useState(0)
 	const toast = useToast();
-	const [ files, setFiles ] = useState([
+	const [files, setFiles] = useState([
 		{
 			name: "test.png",
 			size: 100,
@@ -54,12 +54,12 @@ export default function Dashboard() {
 			uploadedAt: new Date(3000000000000).getTime()
 		}
 	])
-	const [ currentFile, setCurrentFile ] = useState({
+	const [currentFile, setCurrentFile] = useState({
 		name: "test.png",
 		size: 100,
 		cid: "Qm..."
 	})
-	
+
 	const handlePay = () => {
 		Swal.fire({
 			title: 'Payment',
@@ -68,14 +68,14 @@ export default function Dashboard() {
 			confirmButtonText: 'Pay',
 			showLoaderOnConfirm: true,
 			allowOutsideClick: () => !Swal.isLoading()
-		  }).then((result) => {
+		}).then((result) => {
 			if (result.isConfirmed) {
 				// todo: add pay function.
 				Swal.fire({
 					title: "confirm acknowledgement",
-				  })
+				})
 			}
-		  })
+		})
 	};
 
 	const handleWithdraw = async () => {
@@ -83,20 +83,20 @@ export default function Dashboard() {
 		console.log("Withdraw Funds: ", response);
 	}
 
-	useEffect(()=>{
+	useEffect(() => {
 		// @ts-ignore
-		if(window.ethereum!==undefined){
+		if (window.ethereum !== undefined) {
 			// @ts-ignore
 			let balance;
 			// @ts-ignore
 			console.log(auth.address);
-			
+
 			// getRemainingBalance(auth.address).then((users) => setUsers(users));
 			// @ts-ignore
 			setUserBalance(balance)
 		}
 
-	},[isOpen])
+	}, [isOpen])
 
 	return (
 		<>
@@ -109,7 +109,7 @@ export default function Dashboard() {
 				>
 					<ModalOverlay />
 					<ModalContent>
-						
+
 						<ModalHeader>Your Balance is {userBalance} FIL</ModalHeader>
 						<ModalCloseButton mt={"2"} />
 					</ModalContent>
@@ -236,7 +236,7 @@ export default function Dashboard() {
 					<CardFooter
 						style={{ display: "flex", justifyContent: "center" }}
 					>
-						<Button onClick={handlePay}>Pay</Button>
+						{/* <Button onClick={handlePay}>Pay</Button> */}
 					</CardFooter>
 				</Card>
 				<TableContainer w="90%" my={"10"} overflow="hidden">

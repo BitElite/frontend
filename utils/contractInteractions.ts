@@ -16,7 +16,6 @@ export async function withdrawFunds(){
             ABI.abi,
             signer
         );
-
         try{
             const transaction = await contract.withDrawUser()
             await transaction.wait()
@@ -27,7 +26,7 @@ export async function withdrawFunds(){
     }
 }
 
-export async function pay(price:string){
+export async function pay(price:string, CID:string){
     console.log("triggered");
     
     // @ts-ignore
@@ -42,10 +41,12 @@ export async function pay(price:string){
         );
 
         try{
-            const transaction = await contract.receivePay({value:ethers.utils.parseEther(price)});
+            const transaction = await contract.receivePay(
+                ethers.utils.formatBytes32String("hello"),
+                { value: ethers.utils.parseEther(price) }
+            );
             await transaction.wait()
             return transaction.hash
-            console.log(`${transaction.hash} was mined`);
         } catch (error){
             console.log(error);
         }

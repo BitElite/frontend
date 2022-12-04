@@ -3,8 +3,13 @@ import { useRef } from "react";
 import Swal from 'sweetalert2'
 import generateCID from "../../utils/generateCID";
 import getHash from "../../utils/proofOfOwnership";
+import { sendCid } from "../../api/cid";
+import { sendFile } from "../../api/file";
+import { send } from "process";
+import { addOwner, pay } from "../../utils/contractInteractions";
+import { getPrice, sendHash } from "../../api/hash";
 
-const UploadFile = ({currentFile, setCurrentFile}: any) => {
+const UploadFile = ({ currentFile, setCurrentFile }: any) => {
 	const inputRef: any = useRef();
 
 	const handleUploadClick = () => {
@@ -16,10 +21,18 @@ const UploadFile = ({currentFile, setCurrentFile}: any) => {
 		const hash = await getHash(file);
 		console.log("File: ", file)
 		console.log("File's HASH: ", hash);
-
 		const response = await generateCID(file);
-		console.log("Generated CID", response);
-
+		const res = await sendCid(response.cid)
+		if (res === "Asset not found") {
+			const result = await sendFile(file, response.cid)
+			const txnHash = await pay(result, response.cid)
+			await sendHash(txnHash, response.cid)
+		} else {
+			const price = await getPrice(response.cid, file.size);
+			const txnHash = await pay(price, response.cid)
+			await sendHash(txnHash, response.cid)
+		}
+		await addOwner(response.cid, `${Math.floor(file.size / 1024)}`)
 		setCurrentFile({
 			name: file.name,
 			size: file.size,
